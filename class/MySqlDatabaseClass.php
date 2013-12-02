@@ -22,6 +22,17 @@
 				die('MySqlDatabaseClass, database niet geselecteerd');
 		}
 		
-		
-	} 
+		// De functie krijgt als argument een query mee.
+		// Deze wordt door de mysql_query($query) afgevuurd op de database
+		public function fire_query($query)
+		{
+			$result = mysql_query($query) 
+						or die('MySqlDatabase: '.mysql_error());
+			return $result;
+		}		
+	}
+	
+	// Maak nu een instantie van de net gedefinieerde class.
+	$database = new MySqlDatabaseClass();
 ?>
+
