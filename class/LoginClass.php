@@ -112,9 +112,9 @@
 					  FROM `login`
 					  WHERE `email` = '".$email."'
 					  AND `password` = '".$password."'";
+			//echo $query; exit();
 			$loginClassObjectInArray = self::find_by_sql($query);	
-			$loginClassObject = array_shift($loginClassObjectInArray);
-			return $loginClassObject;
+			return $loginClassObject = array_shift($loginClassObjectInArray);
 		}
 	}
 ?>
