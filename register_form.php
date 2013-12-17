@@ -23,8 +23,8 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="text" name="street" />
-				<input type="number" min="0" max="18923" name="house_number"/>
+				<input type="text" name="address" />
+				<input type="number" min="0" max="18923" name="addressnumber"/>
 			</td>
 		</tr>
 		<tr>
@@ -40,27 +40,15 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="text" name="zip_code" />
+				<input type="text" name="zipcode" />
 			</td>
 		</tr>
 		<tr>
-			<td>Geboortedatum: </td>
+			<td>Land: </td>
 		</tr>
 		<tr>
 			<td>
-			  <input type="date"
-					 name="birthday" 
-					 min="1887-01-01" 
-					 max="<?php echo Date('Y-m-d'); ?>" required/>
-			</td>
-		</tr>
-		<tr>
-			<td>Geslacht: </td>
-		</tr>
-		<tr>
-			<td>
-			  <input type="radio" name="sex" value="male" required>Man<br>
-			  <input type="radio" name="sex" value="female" required>Vrouw
+				<input type="text" name="country" />
 			</td>
 		</tr>
 		<tr>
@@ -69,6 +57,22 @@
 		<tr>				
 			<td>
 				<input type='email' name='email' />
+			</td>
+		</tr>
+		<tr>
+			<td>telefoonnummer vast: </td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="telephonenumber" />
+			</td>
+		</tr>
+		<tr>
+			<td>mobiel nummer: </td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" name="mobilephonenumber" />
 			</td>
 		</tr>		
 		<tr>

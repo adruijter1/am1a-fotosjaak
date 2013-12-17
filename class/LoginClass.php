@@ -139,7 +139,63 @@
 			{
 				return false;
 			}
-		}													 
+		}
+		
+		public static function check_if_email_exists($email)
+		{
+			global $database;	
+				
+			// Zet hier je commentaar
+			$query = "SELECT	*
+					  FROM		`login`
+					  WHERE		`email`	=	'".$email."'";
+			
+			// Zet hier je commentaar
+			$result = $database->fire_query($query);
+			
+			// Zet hier je commentaar
+			if (mysql_num_rows($result) > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+			
+			// Ternary operator variabele 
+			// (vergelijking) ? waarde als waar : waarde als niet waar
+			// return (mysql_num_rows($result) > 0) ? true : false;
+		}
+		
+		public static function insert_into_loginClass($post_array)
+		{
+			global $database;
+						
+			$date = date("Y-m-d H:i:s");
+			
+			$tmp_password = $date.$post_array['email'];
+			
+			$hash_from_tmp_password = MD5($tmp_password);
+			
+			$query = "INSERT INTO	`login` (`id`,
+											 `email`,
+											 `password`,
+											 `userrole`,
+											 `activated`,
+											 `activationdate`)
+					  VALUES				(NULL,
+					  						 '".$post_array['email']."',
+					  						 '".$hash_from_tmp_password."',
+					  						 'customer',
+					  						 'no',
+					  						 '".$date."')";
+			$database->fire_query($query);
+			
+			$id = mysql_insert_id();
+			
+			echo $id; exit();
+		}										 
 													
 	}
 ?>
