@@ -1,5 +1,6 @@
 <?php
 	require_once("MySqlDatabaseClass.php");
+	require_once("UserClass.php");
 
 	// Hieronder de classdefinitie van de LoginClass
 	class LoginClass
@@ -194,8 +195,34 @@
 			
 			$id = mysql_insert_id();
 			
-			echo $id; exit();
-		}										 
-													
+			UserClass::insert_into_userClass($post_array, $id);
+			self::send_activation_email($post_array, $hash_from_tmp_password);
+		}
+		
+		public static function send_activation_email($post_array, $password)
+		{
+			$to = $post_array['email'];
+			$subject = "Activatie website FotoSjaak";
+			$message = "Geachte heer/mevrouw ".
+					   $post_array['firstname']." ".
+					   $post_array['infix']." ".
+					   $post_array['surname']."\r\n";
+			$message .= "Voor u kunt inloggen moet uw account nog worden geactiveerd.\r\n";
+			$message .= "Klik hiervoor op de onderstaande link\r\n";
+			$message .= "http://localhost/2013-2014/Blok2/AM1A/fotosjaak-am1a/index.php?content=activation&email=".$post_array['email']."&password=".$password."\r\n";
+			$message .= "Met vriendelijke groet,\r\n";
+			$message .= "Sjaak de Vries\r\n";
+			$message .= "Uw fotograaf";	
+			
+			
+			$headers  = "From: info@fotosjaak.nl\r\n";
+			$headers .=	"Reply-To: info@fotosjaak.nl\r\n";
+			$headers .= "Cc: sjaak@fotosjaak.nl\r\n";
+			$headers .= "Bcc: admin@fotosjaak.nl\r\n";
+			$headers .= "X-mailer: PHP/".phpversion()."\r\n";
+			$headers .= "MIME-version: 1.0\r\n";
+			$headers .= "Content-type: text/plain; charset=iso-8859-1\r\n";
+			mail($to, $subject, $message, $headers);
+		}											
 	}
 ?>
