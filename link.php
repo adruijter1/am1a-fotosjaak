@@ -19,7 +19,12 @@
 						  </li>"; 
 						  echo "<li>
 							<a href='index.php?content=faqpage'>faq</a>				
-						  </li>"; 
+						  </li>";
+						  echo "<li>
+						  			<a href='index.php?content=opdracht'>
+						  				opdracht
+						  			</a>
+						  		</li>"; 
 				break;
 				case 'administrator':
 					echo "<li>
