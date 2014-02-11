@@ -4,9 +4,15 @@
 	
 	if (isset($_POST['submit']))
 	{
-		echo $_POST['description'];
+		$dir = "fotos/".$_POST['user_id']."/".$_POST['order_id']."/";
 		
-		
+		if (!file_exists($dir))
+		{	
+			mkdir($dir, 0777, true);
+			mkdir($dir."thumbnail/", 0777, true);
+		}	
+				
+		move_uploaded_file($_FILES['photo']['tmp_name'], "c:/wamp/test/".$_FILES['photo']['name']);
 	}
 	else 
 	{
