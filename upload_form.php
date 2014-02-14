@@ -58,7 +58,7 @@
 		else 
 		{
 			// Definieer de nieuwe thumbnailhoogt in geval van portrait	
-			$tn_heigth = THUMB_SIZE;
+			$tn_height = THUMB_SIZE;
 			// Definieer de nieuwe thumbnailbreedte in geval van portrait
 			$tn_width =	THUMB_SIZE * $ratio_image;
 		}
