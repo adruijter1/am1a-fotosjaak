@@ -99,7 +99,40 @@
 								   $specs_image[1]);
 				
 				// Sla het plaatje op in een file
-				imagejpeg($thumbnail, $path_thumbnail_photo, 100);		
+				imagejpeg($thumbnail, $path_thumbnail_photo, 100);	
+				break;
+			case 'image/png':
+				$source = imagecreatefrompng($path_photo);
+				
+				imagecopyresampled($thumbnail,
+								   $source,
+								   0,
+								   0,
+								   0,
+								   0,
+								   $tn_width,
+								   $tn_height,
+								   $specs_image[0],
+								   $specs_image[1]);
+								   
+				imagepng($thumbnail, $path_thumbnail_photo, 9);
+				break;
+			case 'image/gif':
+				$source = imagecreatefromgif($filename)($path_photo);
+				
+				imagecopyresampled($thumbnail,
+								   $source,
+								   0,
+								   0,
+								   0,
+								   0,
+								   $tn_width,
+								   $tn_height,
+								   $specs_image[0],
+								   $specs_image[1]);
+								   
+				imagegif($thumbnail, $path_thumbnail_photo);
+				break;				
 		}
 		
 		
