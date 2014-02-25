@@ -8,6 +8,11 @@
 	
 	if (isset($_POST['submit']))
 	{
+		$mime_type_array = array('mime/jpeg', 'mime/png', 'mime/gif');
+		
+		if ( in_array($_FILES['photo']['type'], $mime_type_array))
+		{
+			
 		// Definieer een pad waar de foto's worden opgeslagen	
 		$dir = "fotos/".$_POST['user_id']."/".$_POST['order_id']."/";
 		
@@ -118,7 +123,7 @@
 				imagepng($thumbnail, $path_thumbnail_photo, 9);
 				break;
 			case 'image/gif':
-				$source = imagecreatefromgif($filename)($path_photo);
+				$source = imagecreatefromgif($path_photo);
 				
 				imagecopyresampled($thumbnail,
 								   $source,
@@ -133,13 +138,28 @@
 								   
 				imagegif($thumbnail, $path_thumbnail_photo);
 				break;				
-		}
-		
-		
+		}		
 		
 		PhotoClass::insert_into_photo($_POST['order_id'],
 									  $_FILES['photo']['name'],
 									  $_POST['description']);
+									  
+		// Succesmelding voor het uploaden van de foto
+		echo "Het uploaden van de foto met de naam: <strong>".
+		      $_FILES['photo']['name']."</strong><br>is gelukt. U wordt 
+		      		doorgestuurd naar de uploadpagina.";
+		header("refresh:4;url=index.php?content=upload_form&user_id=".$_POST['user_id']."&order_id=".$_POST['order_id']);
+		
+		}
+		echo "U probeert een bestand te uploaden met een <br>
+			  niet toegestane bestandsextensie. De toegestane<br>
+			  bestandsextensies zijn:<br>
+			  <ul
+			   <li>.jpg</li>
+			   <li>.gif</li>
+			   <li>.png</li>
+			  </ul>
+			  U wordt doorgestuurd naar de uploadpagina.";			  		header("refresh:4;url=index.php?content=upload_form&user_id=".$_POST['user_id']."&order_id=".$_POST['order_id']);
 	}
 	else 
 	{
