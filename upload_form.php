@@ -73,26 +73,36 @@
 		// van een stukje zwart karton met de afmetingen tn_width X 		// tn_height. Op dit stukje zwart karton kunnen we direct de foto
 		// plakken.		
 		$thumbnail = imagecreatetruecolor($tn_width, $tn_height);
+	
+		// Onderzoek wat de extentie is van de file
+		switch( $_FILES['photo']['type'])
+		{
+			case 'image/jpeg':
+				// We maken nu het fotootje van dezelfde 
+				// afmetingen tn_width x
+				// tn_height zodat we dit op het zwarte stukje karton kunnen
+				// plakken.
+				$source = imagecreatefromjpeg($path_photo);
+				
+				// We gaan nu het kleine thumbnail fotootje 
+				// plakken op het zwarte stuk karton met
+				// imagecopyresampled
+				imagecopyresampled($thumbnail,
+								   $source,
+								   0,
+								   0,
+								   0,
+								   0,
+								   $tn_width,
+								   $tn_height,
+								   $specs_image[0],
+								   $specs_image[1]);
+				
+				// Sla het plaatje op in een file
+				imagejpeg($thumbnail, $path_thumbnail_photo, 100);		
+		}
 		
-		// We maken nu het fotootje van dezelfde afmetingen tn_width x
-		// tn_height zodat we dit op het zwarte stukje karton kunnen
-		// plakken.
-		$source = imagecreatefromjpeg($path_photo);
 		
-		// We gaan nu het kleine thumbnail fotootje plakken op het 
-		// zwarte stuk karton met imagecopyresampled
-		imagecopyresampled($thumbnail,
-						   $source,
-						   0,
-						   0,
-						   0,
-						   0,
-						   $tn_width,
-						   $tn_height,
-						   $specs_image[0],
-						   $specs_image[1]);
-						   
-		imagejpeg($thumbnail, $path_thumbnail_photo, 100);
 		
 		PhotoClass::insert_into_photo($_POST['order_id'],
 									  $_FILES['photo']['name'],
