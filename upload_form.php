@@ -1,11 +1,17 @@
 <?php 
 	$userrole = array('root', 'photographer');
-	include("security.php"); 
+	include("security.php");
+	
+	// Voeg deze class toe zodat we gegevens kunnen wegschrijven naar
+	// de photo tabel.
+	require_once 'class/PhotoClass.php'; 
 	
 	if (isset($_POST['submit']))
 	{
+		// Definieer een pad waar de foto's worden opgeslagen	
 		$dir = "fotos/".$_POST['user_id']."/".$_POST['order_id']."/";
-		//echo $dir; exit();
+		
+		// Bestaat deze directory al, zo nee, maak de directory
 		if (!file_exists($dir))
 		{	
 			mkdir($dir, 0777, true);
@@ -88,15 +94,9 @@
 						   
 		imagejpeg($thumbnail, $path_thumbnail_photo, 100);
 		
-		
-		var_dump($specs_image);
-		echo $ratio_image;exit();
-		
-		
-		
-		
-		
-		echo $path_thumbnail_photo;exit();
+		PhotoClass::insert_into_photo($_POST['order_id'],
+									  $_FILES['photo']['name'],
+									  $_POST['description']);
 	}
 	else 
 	{
