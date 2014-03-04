@@ -186,5 +186,10 @@
 		}
 		
 	}
- }
+ 
+	public static function find_orders_by_user_id()
+	{
+		
+	}
+}
 ?>

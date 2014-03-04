@@ -7,12 +7,12 @@
 		//alert("Dit is wat tekst");
 		// dblclick(), click(), mouseleave(), mouseenter(), css, hide()
 		// fadeIn()
-		
+		/*
 		$("p").css("width", "500px")
 			  .css("height", "200px")
 			  .css("background-color", "RGBA(100,100,100, 1.0)")
 			  .css("border", "2px solid blue");
-		
+		*/
 		var groter = 20;
 		$("button#2").mouseenter(function(){			
 			$("p#eerste").css("border", "2px solid red")

@@ -8,7 +8,9 @@
 	
 	if (isset($_POST['submit']))
 	{
-		$mime_type_array = array('mime/jpeg', 'mime/png', 'mime/gif');
+		//echo $_FILES['photo']['type']; exit();
+		
+		$mime_type_array = array('image/jpeg', 'image/png', 'image/gif');
 		
 		if ( in_array($_FILES['photo']['type'], $mime_type_array))
 		{
@@ -151,6 +153,8 @@
 		header("refresh:4;url=index.php?content=upload_form&user_id=".$_POST['user_id']."&order_id=".$_POST['order_id']);
 		
 		}
+		else
+		{
 		echo "U probeert een bestand te uploaden met een <br>
 			  niet toegestane bestandsextensie. De toegestane<br>
 			  bestandsextensies zijn:<br>
@@ -160,6 +164,7 @@
 			   <li>.png</li>
 			  </ul>
 			  U wordt doorgestuurd naar de uploadpagina.";			  		header("refresh:4;url=index.php?content=upload_form&user_id=".$_POST['user_id']."&order_id=".$_POST['order_id']);
+		}
 	}
 	else 
 	{
