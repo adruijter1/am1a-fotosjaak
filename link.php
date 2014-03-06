@@ -47,6 +47,9 @@
 					echo "<li>
 							<a href='index.php?content=developerzone/filters'>filters</a>
 						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/image-attributes'>image-attributes</a>
+						  </li>";
 				break;
 				case 'photographer':
 					echo "<li>
