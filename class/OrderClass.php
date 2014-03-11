@@ -197,7 +197,7 @@
 		$query = "SELECT * 
 				  FROM `order`
 				  WHERE `user_id` = ".$_SESSION['id'];
-		
+				
 		// Vuur de query af op de database
 		$result = $database->fire_query($query);
 		
@@ -205,6 +205,7 @@
 		while ( $row = mysql_fetch_array($result))
 		{
 			echo "<tr>
+					<td>".$row['user_id']."</td>
 					<td>".$row['order_id']."</td>
 					<td>".$row['order_short']."</td>
 					<td>".date("d-m-Y",
@@ -219,6 +220,42 @@
 					</td>
 				  <tr>";
 		}
+	}
+
+	public static function find_all_orders_order_by_id()
+	{
+		// Gebruik het $database-object uit de MySqlDatabaseClass
+		global $database;
+		
+		// Maak een query die alle opdrachten selecteert uit de
+		// Order tabel van de database voor degene die is ingelogd.
+		$query = "SELECT * 
+				  FROM `order`
+				  ORDER BY `user_id`";
+				
+		// Vuur de query af op de database
+		$result = $database->fire_query($query);
+		
+		// Lees de resultaten uit door middel van een while lus
+		while ( $row = mysql_fetch_array($result))
+		{
+			echo "<tr>
+					<td>".$row['user_id']."</td>
+					<td>".$row['order_id']."</td>
+					<td>".$row['order_short']."</td>
+					<td>".date("d-m-Y",
+							   strtotime($row['deliverydate']))."</td>
+					<td>".$row['number_of_pictures']."</td>
+					<td>".$row['color']."</td>
+					<td>
+						<a href='index.php?content=bekijk_fotos&order_id=".$row['order_id']."'>
+ 							<img src='images/show_fotos.png'
+ 			 					 alt='Bekijk de fotos' />
+ 	  					</a>					
+					</td>
+				  <tr>";
+		}
+		
 	}
 }
 ?>

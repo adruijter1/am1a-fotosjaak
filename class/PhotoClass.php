@@ -56,37 +56,100 @@
 		
 		$result = $database->fire_query($query);
 		
-		// Maak een teller
-		$teller = 0;
-		echo "<tr>";
-		  while ( $row = mysql_fetch_array($result))
-		  {
-		    if ( $teller != NUMBER_OF_PHOTOS)
-			{
-		      echo "<td>
-		    	      <img src='fotos/".$_SESSION['id'].
-		    	                    "/".$order_id.
-		    	                    "/thumbnail/tn_".
-		    	                    $row['photo_name']."' 
-		    	           alt='".$row['photo_text']."'/>
-		    	    </td>";
-		    	    $teller++;
-		    }
-			else 
-			{
-		      echo "</tr>
-		      		  <tr>
-		      		    <td>
-		    	          <img src='fotos/".$_SESSION['id'].
-		    	                        "/".$order_id.
-		    	                        "/thumbnail/tn_".
-		    	                        $row['photo_name']."' 
-		    	               alt='".$row['photo_text']."'/>
-		    	        </td>";
-					$teller = 1;
-			}	
-		  }
-		echo "</tr>";	
+		// Als er geen fotos beschikbaar zijn dan komt er een
+		// melding dat er momenteel geen fotos beschikbaar zijn
+		if (mysql_num_rows($result) != 0)
+		{
+			// Maak een teller
+			$teller = 0;
+			echo "<tr>";
+			  while ( $row = mysql_fetch_array($result))
+			  {
+			    if ( $teller != NUMBER_OF_PHOTOS)
+				{
+			      echo "<td>
+			    	      <img src='fotos/".$_SESSION['id'].
+			    	                    "/".$order_id.
+			    	                    "/thumbnail/tn_".
+			    	                    $row['photo_name']."' 
+			    	           alt='".$row['photo_text']."'/>
+			    	    </td>";
+			    	    $teller++;
+			    }
+				else 
+				{
+			      echo "</tr>
+			      		  <tr>
+			      		    <td>
+			    	          <img src='fotos/".$_SESSION['id'].
+			    	                        "/".$order_id.
+			    	                        "/thumbnail/tn_".
+			    	                        $row['photo_name']."' 
+			    	               alt='".$row['photo_text']."'/>
+			    	        </td>";
+						$teller = 1;
+				}	
+			  }
+			echo "</tr>";
+		}
+		else
+		{
+			echo "Er zijn momenteel geen foto's beschikbaar";	
+		}	
+	}
+
+	public static function show_photos($order_id, $user_id)
+	{
+		global $database;
+		
+		$query = "SELECT *
+				  FROM `photo`
+				  WHERE `order_id` = '".$order_id."'
+				  AND `user_id` = '".$user_id."'";
+		//echo $query; exit();
+		
+		$result = $database->fire_query($query);
+		
+		// Als er geen fotos beschikbaar zijn dan komt er een
+		// melding dat er momenteel geen fotos beschikbaar zijn
+		if (mysql_num_rows($result) != 0)
+		{
+			// Maak een teller
+			$teller = 0;
+			echo "<tr>";
+			  while ( $row = mysql_fetch_array($result))
+			  {
+			    if ( $teller != NUMBER_OF_PHOTOS)
+				{
+			      echo "<td>
+			    	      <img src='fotos/".$_SESSION['id'].
+			    	                    "/".$order_id.
+			    	                    "/thumbnail/tn_".
+			    	                    $row['photo_name']."' 
+			    	           alt='".$row['photo_text']."'/>
+			    	    </td>";
+			    	    $teller++;
+			    }
+				else 
+				{
+			      echo "</tr>
+			      		  <tr>
+			      		    <td>
+			    	          <img src='fotos/".$_SESSION['id'].
+			    	                        "/".$order_id.
+			    	                        "/thumbnail/tn_".
+			    	                        $row['photo_name']."' 
+			    	               alt='".$row['photo_text']."'/>
+			    	        </td>";
+						$teller = 1;
+				}	
+			  }
+			echo "</tr>";
+		}
+		else
+		{
+			echo "Er zijn momenteel geen foto's beschikbaar";	
+		}	
 	}
  }
 ?>

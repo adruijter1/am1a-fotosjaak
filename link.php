@@ -58,6 +58,11 @@
 					echo "<li>
 							<a href='index.php?content=upload'>upload</a>
 						  </li>";
+					echo "<li>
+						    <a href='index.php?content=bekijk_opdracht_photographer'>
+						  				bekijk opdrachten
+						  	</a>
+						  </li>"; 
 				break;				
 			}
 		}
