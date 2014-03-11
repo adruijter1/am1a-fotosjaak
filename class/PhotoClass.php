@@ -1,6 +1,10 @@
 <?php
  require_once("MySqlDatabaseClass.php");
  
+ // Definieer een constante. Deze waarde kan niet run-time
+ // worden gewijzigd.
+ define('NUMBER_OF_PHOTOS', 3);
+ 
  class PhotoClass
  {
  	//Fields
@@ -39,5 +43,50 @@
 		$database->fire_query($query);
 	}
 	
+	// Haal de foto's uit de database voor de 
+	// pagina bekijk_fotos.php
+	public static function show_photos($order_id)
+	{
+		global $database;
+		
+		$query = "SELECT *
+				  FROM `photo`
+				  WHERE `order_id` = '".$order_id."'";
+		//echo $query; exit();
+		
+		$result = $database->fire_query($query);
+		
+		// Maak een teller
+		$teller = 0;
+		echo "<tr>";
+		  while ( $row = mysql_fetch_array($result))
+		  {
+		    if ( $teller != NUMBER_OF_PHOTOS)
+			{
+		      echo "<td>
+		    	      <img src='fotos/".$_SESSION['id'].
+		    	                    "/".$order_id.
+		    	                    "/thumbnail/tn_".
+		    	                    $row['photo_name']."' 
+		    	           alt='".$row['photo_text']."'/>
+		    	    </td>";
+		    	    $teller++;
+		    }
+			else 
+			{
+		      echo "</tr>
+		      		  <tr>
+		      		    <td>
+		    	          <img src='fotos/".$_SESSION['id'].
+		    	                        "/".$order_id.
+		    	                        "/thumbnail/tn_".
+		    	                        $row['photo_name']."' 
+		    	               alt='".$row['photo_text']."'/>
+		    	        </td>";
+					$teller = 1;
+			}	
+		  }
+		echo "</tr>";	
+	}
  }
 ?>
