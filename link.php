@@ -27,7 +27,7 @@
 						  		</li>"; 
 						  echo "<li>
 						  			<a href='index.php?content=bekijk_opdracht'>
-						  				bekijk opdracht
+						  				bekijk opdrachten
 						  			</a>
 						  		</li>"; 
 				break;
@@ -49,6 +49,9 @@
 						  </li>";
 					echo "<li>
 							<a href='index.php?content=developerzone/image-attributes'>image-attributes</a>
+						  </li>";
+				    echo "<li>
+							<a href='index.php?content=developerzone/textinsertion'>textinsertion</a>
 						  </li>";
 				break;
 				case 'photographer':
