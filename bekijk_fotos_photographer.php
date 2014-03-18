@@ -8,6 +8,6 @@
 <p>Hieronder staan de fotos van de opdracht:</p>
 
 <table>
-	<?php PhotoClass::show_photos($_GET['order_id'], $_GET['user_id']); ?>	
+	<?php PhotoClass::show_photos_photographer($_GET['order_id'], $_GET['user_id']); ?>	
 </table>
  

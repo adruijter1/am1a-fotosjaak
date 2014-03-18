@@ -248,7 +248,7 @@
 					<td>".$row['number_of_pictures']."</td>
 					<td>".$row['color']."</td>
 					<td>
-						<a href='index.php?content=bekijk_fotos&order_id=".$row['order_id']."'>
+						<a href='index.php?content=bekijk_fotos_photographer&order_id=".$row['order_id']."&user_id=".$row['user_id']."'>
  							<img src='images/show_fotos.png'
  			 					 alt='Bekijk de fotos' />
  	  					</a>					

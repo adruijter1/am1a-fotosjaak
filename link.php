@@ -53,6 +53,16 @@
 				    echo "<li>
 							<a href='index.php?content=developerzone/textinsertion'>textinsertion</a>
 						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/addclass'>add class</a>
+						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/show-hide'>show-hide</a>
+						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/fading'>fading</a>
+						  </li>";
+					
 				break;
 				case 'photographer':
 					echo "<li>

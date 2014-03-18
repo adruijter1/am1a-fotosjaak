@@ -98,7 +98,7 @@
 		}	
 	}
 
-	public static function show_photos($order_id, $user_id)
+	public static function show_photos_photographer($order_id, $user_id)
 	{
 		global $database;
 		
