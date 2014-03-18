@@ -100,12 +100,15 @@
 
 	public static function show_photos_photographer($order_id, $user_id)
 	{
+		//echo $order_id." <=> ".$user_id; exit();	
+			
 		global $database;
 		
 		$query = "SELECT *
-				  FROM `photo`
-				  WHERE `order_id` = '".$order_id."'
-				  AND `user_id` = '".$user_id."'";
+				  FROM `photo`, `order`
+				  WHERE `order`.`user_id` = '".$user_id."' 
+				  AND   `order`.`order_id` = '".$order_id."'
+				  AND   `order`.`order_id` = `photo`.`order_id`";
 		//echo $query; exit();
 		
 		$result = $database->fire_query($query);
@@ -122,7 +125,7 @@
 			    if ( $teller != NUMBER_OF_PHOTOS)
 				{
 			      echo "<td>
-			    	      <img src='fotos/".$_SESSION['id'].
+			    	      <img src='fotos/".$user_id.
 			    	                    "/".$order_id.
 			    	                    "/thumbnail/tn_".
 			    	                    $row['photo_name']."' 
@@ -135,7 +138,7 @@
 			      echo "</tr>
 			      		  <tr>
 			      		    <td>
-			    	          <img src='fotos/".$_SESSION['id'].
+			    	          <img src='fotos/".$user_id.
 			    	                        "/".$order_id.
 			    	                        "/thumbnail/tn_".
 			    	                        $row['photo_name']."' 

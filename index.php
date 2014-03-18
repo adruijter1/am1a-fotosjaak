@@ -14,7 +14,8 @@
 	</head>
 	<body >
 		<div id='container'>
-			<div id='banner'>		
+			<div id='banner'>
+				<?php include("banner.php"); ?>		
 			</div>
 			<div id='content'>
 				<div id='link'>
