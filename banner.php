@@ -15,6 +15,13 @@
 	z-index:1;
 }
 
+#imagerotator img
+{
+	border:3px solid black;
+	height:165px;
+	border-radius:25px
+}
+
 </style>
 
 <script>
@@ -51,6 +58,10 @@
 	</div>
 	<div>
 	  <img src='./images/imagerotator/witte-haai-300x200.png'
+	  	   alt='Koalabeer danger!' />
+	</div>
+	<div>
+	  <img src='./images/imagerotator/siberian_husky.jpg'
 	  	   alt='Koalabeer danger!' />
 	</div>
 </div>

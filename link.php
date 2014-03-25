@@ -62,7 +62,12 @@
 					echo "<li>
 							<a href='index.php?content=developerzone/fading'>fading</a>
 						  </li>";
-					
+					echo "<li>
+							<a href='index.php?content=developerzone/sliding'>sliding</a>
+						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/animation'>animation</a>
+						  </li>";					
 				break;
 				case 'photographer':
 					echo "<li>
