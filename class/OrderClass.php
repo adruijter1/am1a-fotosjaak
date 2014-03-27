@@ -14,7 +14,8 @@
 	private $eventdate;
 	private $color;
 	private $number_of_pictures;
- 	
+ 	private $cost;
+	
  	//Constructor
  	public function __construct()
 	{
@@ -39,6 +40,7 @@
 			$array_object->eventdate 			= $row['eventdate'];
 			$array_object->color				= $row['color'];
 			$array_object->number_of_pictures	= $row['number_of_pictures'];
+			$array_object->cost					= $row['cost'];
 			
 			$order_object_array[] = $array_object;			
 		}
@@ -247,6 +249,7 @@
 							   strtotime($row['deliverydate']))."</td>
 					<td>".$row['number_of_pictures']."</td>
 					<td>".$row['color']."</td>
+					<td><a href='index.php?content=add_cost&order_id=".$row['order_id']."'>".$row['cost']."</a></td>
 					<td>
 						<a href='index.php?content=bekijk_fotos_photographer&order_id=".$row['order_id']."&user_id=".$row['user_id']."'>
  							<img src='images/show_fotos.png'
@@ -255,6 +258,60 @@
 					</td>
 				  <tr>";
 		}
+		
+	}
+
+	public static function update_cost_by_order_id($cost, $order_id)
+	{
+		global $database;
+			
+		$query = "UPDATE `order`
+				  SET  `cost` =  '".$cost."'
+				  WHERE  `order_id` = '".$order_id."'";	
+		
+		$database->fire_query($query);
+		echo "Het ingevoerde bedrag is opgeslagen";	
+		header("refresh:200;url=index.php?content=bekijk_opdracht_photographer");	
+		self::send_cost_to_customer($order_id);
+	}
+	
+	public static function send_cost_to_customer($order_id)
+	{
+		global $database;
+		
+		$query = "SELECT * 
+				  FROM	`login`, `user`, `order`
+				  WHERE	`order`.`order_id` = '".$order_id."'
+				  AND	`login`.`id` = `user`.`id` 
+				  AND	`user`.`id` = `order`.`user_id`";
+				  
+		$row = $database->fire_query($query);
+		
+		$row = mysql_fetch_array($row);
+		//var_dump($result);
+		
+		$bericht = "Geachte heer/mevrouw ".
+					$row['firstname']." ".
+					$row['infix']." ".
+					$row['surname']."<br><br>
+					
+					Wij hebben de onderstaande opdracht van u ontvangen.
+					<table>
+					  <tr>
+					    <td>Uw order-id</td>
+					    <td>".$row['order_id']."</td>
+					  </tr>	
+					  <tr>
+					    <td>Korte omschrijving opdracht</td>
+					    <td>".$row['order_short']."</td>
+					  </tr>
+					  <tr>
+					    <td>Datum van aanvraag</td>
+					    <td>".date("d-m-Y", strtotime($row['deliverydate']))."</td>
+					  </tr>				
+					</table>
+					";
+		echo $bericht;
 		
 	}
 }

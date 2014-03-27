@@ -13,6 +13,7 @@
  	<th>datum</th>
  	<th>aantal</th>
  	<th>kleur z/w</th>
+ 	<th>prijs &euro;</th>
  	<th>bekijk</th>
  </tr>
  	<?php OrderClass::find_all_orders_order_by_id();  ?>
