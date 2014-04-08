@@ -5,12 +5,21 @@
 		<title>
 			website fotosjaak
 		</title>
-		<link rel='stylesheet' type='text/css' href='./css/style.css'/>
+		<link rel='stylesheet' 
+			  type='text/css' 
+			  href='./css/style.css'/>
 		
+		<link rel="stylesheet"
+			  type='text/css'			  href="jquery/jquery-ui-1.10.4.custom/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
+			
 		<!-- Hier wordt de jquery bibliotheek toegevoegd aan de site -->
 		<script style='text/javascript'
 			    src='./jquery/jquery-1.11.0.min.js'></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Hier wordt de jquery ui bibliotheek toegevoegd aan de site -->
+		<script 			src="jquery/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js">			
+		</script>	
+	
 	</head>
 	<body >
 		<div id='container'>

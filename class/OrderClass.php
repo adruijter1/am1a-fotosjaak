@@ -2,6 +2,7 @@
  require_once("class/MySqlDatabaseClass.php");
  require_once("class/UserClass.php");
  require_once("class/LoginClass.php");
+ require_once("class/SessionClass.php");
  
  
  class OrderClass
@@ -270,13 +271,16 @@
 				  WHERE  `order_id` = '".$order_id."'";	
 		
 		$database->fire_query($query);
-		echo "Het ingevoerde bedrag is opgeslagen";	
-		header("refresh:200;url=index.php?content=bekijk_opdracht_photographer");	
 		self::send_cost_to_customer($order_id);
+		echo "Het ingevoerde bedrag is opgeslagen";	
+		header("refresh:4;url=index.php?content=bekijk_opdracht_photographer");	
+		
 	}
 	
 	public static function send_cost_to_customer($order_id)
 	{
+		
+			
 		global $database;
 		
 		$query = "SELECT * 
@@ -290,13 +294,24 @@
 		$row = mysql_fetch_array($row);
 		//var_dump($result);
 		
-		$bericht = "Geachte heer/mevrouw ".
+		$to = $row['email'];
+		$subject = "Offerte opdracht:".$row['order_short'];
+		$headers = "From: info@fotosjaak.nl\r\n";
+		$headers .= "Reply-To: info@fotosjaak.nl\r\n";
+		$headers .= "Cc: info@belastingdienst.nl\r\n";
+		$headers .= "Bcc: info@interpol.nl\r\n";
+		$headers .= "X-mailer: PHP/".phpversion()."\r\n";
+		$headers .= "Mime-version: 1.0\r\n";
+		$headers .= "Content-Type: text/html; charset=iso-8859-1\r\n";
+		
+		$message = "Geachte heer/mevrouw ".
 					$row['firstname']." ".
 					$row['infix']." ".
 					$row['surname']."<br><br>
 					
+					
 					Wij hebben de onderstaande opdracht van u ontvangen.
-					<table>
+					<table style='border: 1px solid blue;'>
 					  <tr>
 					    <td>Uw order-id</td>
 					    <td>".$row['order_id']."</td>
@@ -308,11 +323,45 @@
 					  <tr>
 					    <td>Datum van aanvraag</td>
 					    <td>".date("d-m-Y", strtotime($row['deliverydate']))."</td>
+					  </tr>
+					  <tr>
+					    <td>Bedrag</td>
+					    <td>".$row['cost']."</td>
 					  </tr>				
 					</table>
-					";
-		echo $bericht;
+		Ik heb voor de bovenstaande opdracht een offerteprijs berekend van ".$row['cost']."<br>Wanneer u akkoord gaat met dit bedrag, klik dan <a href='http://localhost/2013-2014/Blok2/AM1A/fotosjaak-am1a/index.php?content=confirm_cost&order_id=".$row['order_id']."&user_id=".$row['id']."'>hier</a><br>
+		<br>
+		Met vriendelijke groet,<br>
+		Sjaak de Vries,<br>
+		Uw fotograaf.";
+				
 		
+		mail($to, $subject, $message, $headers);
+		
+	}
+	
+	public static function update_confirm_cost($order_id, $user_id)
+	{
+		global $database;
+		global $session;
+		
+		$query = "SELECT *
+				  FROM `login`
+				  WHERE `id` = '".$user_id."'";
+		$userObjectArray = LoginClass::find_by_sql($query);
+		$userObject = array_shift($userObjectArray);
+		$session->login($userObject);
+				  
+		
+		
+		$query = "UPDATE `order`
+				  SET `confirm_cost` = 'yes'
+				  WHERE order_id = '".$order_id."'";
+				  
+		$database->fire_query($query);
+		echo "Bedankt voor het bevestigen van de offerteprijs.<br>
+		      We gaan voor u onmiddelijk aan de slag";
+		header("refresh:4;index.php?content=login_form");
 	}
 }
 ?>

@@ -7,7 +7,7 @@
 
 #imagerotator .huidigeFoto
 {
-	z-index:2;
+	z-index:4;
 }
 
 #imagerotator .vorigeFoto
@@ -19,6 +19,7 @@
 {
 	border:3px solid black;
 	height:165px;
+	width:200px;
 	border-radius:25px
 }
 
@@ -28,27 +29,40 @@
   $(document).ready(function(){ 	
   
   	// Maak een javascript timer
-    setInterval("veranderFoto()", 1000);	
+    setInterval("veranderFoto()", 6000);
+    
+    //$("div.huidigeFoto").fadeOut(6000);
+  	//$("div.huidigeFoto").fadeIn(3000);	
   });
   
   function veranderFoto()
   {
+  	//
+  	
   	var huidigeFoto = $("#imagerotator div.huidigeFoto");
-  	var volgendeFoto = huidigeFoto.next();
   	
-  	if (volgendeFoto.length == 0)
+  	$("div.huidigeFoto").fadeOut(3000, test);
+  	
+  	function test()
   	{
-  		volgendeFoto = $("#imagerotator div:first");
+	  	//alert("hallo" + huidigeFoto.toString());
+	  	$("div.huidigeFoto").fadeIn(100);
+	  	var volgendeFoto = huidigeFoto.next();
+	  	
+	  	if (volgendeFoto.length == 0)
+	  	{
+	  		volgendeFoto = $("#imagerotator div:first");
+	  	}
+	  	huidigeFoto.removeClass("huidigeFoto").addClass("vorigeFoto");
+	  	volgendeFoto.addClass("huidigeFoto");
+	  	huidigeFoto.removeClass("vorigeFoto");
   	}
-  	huidigeFoto.removeClass("huidigeFoto").addClass("vorigeFoto");
-  	volgendeFoto.addClass("huidigeFoto");
-  	huidigeFoto.removeClass("vorigeFoto");
-  	
+  	//
   }	
 </script>
 
 <div id='imagerotator'>
-	<div class='huidigeFoto'>
+	<div 'huidigeFoto'>
 	  <img src='./images/imagerotator/koala-300x200.jpg'
 	  	   alt='Koalabeer danger!' />
 	</div>
@@ -60,7 +74,7 @@
 	  <img src='./images/imagerotator/witte-haai-300x200.png'
 	  	   alt='Koalabeer danger!' />
 	</div>
-	<div>
+	<div class='huidigeFoto'>
 	  <img src='./images/imagerotator/siberian_husky.jpg'
 	  	   alt='Koalabeer danger!' />
 	</div>

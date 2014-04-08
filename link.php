@@ -68,6 +68,12 @@
 					echo "<li>
 							<a href='index.php?content=developerzone/animation'>animation</a>
 						  </li>";					
+					echo "<li>
+							<a href='index.php?content=developerzone/datepicker'>datepicker</a>
+						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/accordion'>accordion</a>
+						  </li>";					
 				break;
 				case 'photographer':
 					echo "<li>
