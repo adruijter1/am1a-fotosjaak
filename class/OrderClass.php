@@ -215,6 +215,8 @@
 							   strtotime($row['deliverydate']))."</td>
 					<td>".$row['number_of_pictures']."</td>
 					<td>".$row['color']."</td>
+					<td>".$row['cost']."</td>
+					<td>".$row['confirm_cost']."</td>
 					<td>
 						<a href='index.php?content=bekijk_fotos&order_id=".$row['order_id']."'>
  							<img src='images/show_fotos.png'
