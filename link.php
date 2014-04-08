@@ -73,7 +73,10 @@
 						  </li>";
 					echo "<li>
 							<a href='index.php?content=developerzone/accordion'>accordion</a>
-						  </li>";					
+						  </li>";
+					echo "<li>
+							<a href='index.php?content=developerzone/simple_overlay'>simple overlay</a>
+						  </li>";						
 				break;
 				case 'photographer':
 					echo "<li>

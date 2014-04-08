@@ -3,6 +3,14 @@
 	include("security.php");
 	require_once('class/OrderClass.php');
 ?>
+<style>
+table
+{
+	font-size:0.8em;
+}
+	
+</style>
+
 <p>Hieronder staan uw opdrachten</p>
 
 <table>
@@ -19,4 +27,5 @@
  </tr>
  	<?php OrderClass::find_orders_by_user_id();  ?>
 </table>
+
 
