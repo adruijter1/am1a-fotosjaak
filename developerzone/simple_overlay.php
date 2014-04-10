@@ -13,13 +13,13 @@
 }
 .simple_overlay .close
 {
-	background-image:url('../images/drop.png.);
+	background-image:url('./images/drop.png');
 	position:absolute;
-	right:-15px;
-	top:-15px;
+	right:-10px;
+	top:-10px;
 	cursor:pointer;
-	height:35px;
-	width:35px;
+	height:16px;
+	width:16px;
 }	
 
 .details
