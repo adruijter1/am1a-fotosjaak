@@ -143,6 +143,7 @@
 		}		
 		
 		PhotoClass::insert_into_photo($_POST['order_id'],
+									  $_POST['title'],
 									  $_FILES['photo']['name'],
 									  $_POST['description']);
 									  
@@ -169,6 +170,21 @@
 	else 
 	{
 ?>
+
+<style>
+table
+{
+	border-collapse:collapse;
+}
+table, th, td
+{
+	border:1px solid orange;	
+}
+td
+{
+	text-align:left;
+}
+</style>
 Kies een foto
 <table>
 	<form action='' method='post' enctype="multipart/form-data">
@@ -176,6 +192,13 @@ Kies een foto
 			<td>Kies een foto</td>
 			<td><input type='file' name='photo' />
 		</tr>
+		<tr>
+			<td>Titel foto</td>
+			<td>
+				<input type='text' name='title' />
+			</td>
+		</tr>
+
 		<tr>
 			<td>Beschrijving foto</td>
 			<td><textarea name='description' 

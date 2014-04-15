@@ -22,7 +22,7 @@
 	} 	
  	
  	//Methods
- 	public static function insert_into_photo($order_id, $photo_name, 												$photo_text)
+ 	public static function insert_into_photo($order_id, $photo_title, 												$photo_name, $photo_text)
 	{
 		// Maak het $database object uit het MySqlDatabaseClass.php	
 		// bestand beschikbaar binnen de insert_into_photo() method
@@ -31,10 +31,12 @@
 		// Maak de insert query
 		$query = "INSERT INTO `photo` (`photo_id`,
 									   `order_id`,
+									   `photo_title`,
 									   `photo_name`,
 									   `photo_text`)
 				  VALUES			  (Null,
 				  					   '".$order_id."',
+				  					   '".$photo_title."',
 				  					   '".$photo_name."',
 				  					   '".$photo_text."')";
 									   
@@ -50,8 +52,9 @@
 		global $database;
 		
 		$query = "SELECT *
-				  FROM `photo`
-				  WHERE `order_id` = '".$order_id."'";
+				  FROM `photo`, `order`
+				  WHERE `photo`.`order_id` = '".$order_id."'
+				  AND `order`.`order_id` = `photo`.`order_id`";
 		//echo $query; exit();
 		
 		$result = $database->fire_query($query);
@@ -62,6 +65,7 @@
 		{
 			// Maak een teller
 			$teller = 0;
+			$counter = 0;
 			echo "<tr>";
 			  while ( $row = mysql_fetch_array($result))
 			  {
@@ -72,9 +76,21 @@
 			    	                    "/".$order_id.
 			    	                    "/thumbnail/tn_".
 			    	                    $row['photo_name']."' 
-			    	           alt='".$row['photo_text']."'/>
-			    	    </td>";
+			    	           alt='".$row['photo_text']."'
+			    	           rel='#test".$counter."'/>
+			    	    </td>
+			    	    <div class='simple_overlay' id='test".$counter."'>
+							<img src='./fotos/".$_SESSION['id']."/".
+									$order_id."/".$row['photo_name']."' />
+	
+							<div class='details'>
+								<h3>".$row['order_short']."</h3>
+								<h4>".$row['photo_title']."</h4>
+								<p>".$row['photo_text']."</p>		
+							</div>	
+						</div>";
 			    	    $teller++;
+						$counter++;
 			    }
 				else 
 				{
@@ -85,9 +101,22 @@
 			    	                        "/".$order_id.
 			    	                        "/thumbnail/tn_".
 			    	                        $row['photo_name']."' 
-			    	               alt='".$row['photo_text']."'/>
-			    	        </td>";
+			    	               alt='".$row['photo_text']."'
+			    	               rel='#test".$counter."'
+			    	               />
+			    	        </td>
+			    	    <div class='simple_overlay' id='test".$counter."'>
+							<img src='./fotos/".$_SESSION['id']."/".
+									$order_id."/".$row['photo_name']."' />
+	
+							<div class='details'>
+								<h3>".$row['order_short']."</h3>
+								<h4>".$row['photo_title']."</h4>
+								<p>".$row['photo_text']."</p>		
+							</div>	
+						</div>";
 						$teller = 1;
+						$counter++;
 				}	
 			  }
 			echo "</tr>";
